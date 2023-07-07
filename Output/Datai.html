@@ -1,0 +1,178 @@
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+        }
+        
+        #video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            z-index: 9999;
+        }
+        
+        #video-overlay.show {
+            opacity: 0.2;
+            pointer-events: auto;
+        }
+        
+        #welcome-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #1E90FF;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #1E90FF;
+            cursor: pointer;
+            z-index: 99999;
+        }
+        
+        #welcome-button:hover {
+            background-color: #00BFFF;
+            box-shadow: 0 0 30px #00BFFF;
+        }
+        
+        #video-barrier {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        #about-me {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+            background-color: {color};
+            box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+            text-align: center;
+            z-index: 99999;
+            overflow: auto;
+            max-height: 80vh;
+        }
+
+        /* Scrollbalken-Design */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: black;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #1E90FF;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #00BFFF;
+        }
+        
+        #top-bar, #bottom-bar {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: {color};
+            opacity: 0.5;
+            z-index: 9998;
+        }
+        
+        #top-bar {
+            top: 0;
+        }
+        
+        #bottom-bar {
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-overlay"></div>
+    <button id="welcome-button">Willkommen</button>
+    <div id="video-barrier"></div>
+    <div id="about-me">Mein Name ist <h3>d</h3>und ich bin derzeit <h3>dddddddd</h3> Jahre alt.<br>
+<h4>dddd</h4>
+    <script>
+        var welcomeButton = document.getElementById("welcome-button");
+        var videoOverlay = document.getElementById("video-overlay");
+        var videoBarrier = document.getElementById("video-barrier");
+        var aboutMe = document.getElementById("about-me");
+        var player;
+        
+        welcomeButton.addEventListener("click", function() {
+            welcomeButton.style.display = "none";
+            videoOverlay.classList.add("show");
+            videoBarrier.style.pointerEvents = "auto";
+            aboutMe.style.display = "block";
+            playVideo();
+        });
+        
+        function playVideo() {
+            if (typeof(YT) == "undefined" || typeof(YT.Player) == "undefined") {
+                var tag = document.createElement("script");
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName("script")[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                window.onYouTubeIframeAPIReady = function() {
+                    loadPlayer();
+                };
+            } else {
+                loadPlayer();
+            }
+        }
+        
+        function loadPlayer() {
+            player = new YT.Player("video-overlay", {
+                videoId: "DT6uWxBIXJs",
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    loop: 1,
+                    enablejsapi: 1,
+                    opacity: 20,
+                    disablekb: 1,
+                    modestbranding: 1,
+                    showinfo: 0
+                },
+                events: {
+                    onReady: function(event) {
+                        event.target.playVideo();
+                    },
+                    onStateChange: function(event) {
+                        if (event.data === YT.PlayerState.ENDED) {
+                            player.playVideo();
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <div id="top-bar"></div>
+    <div id="bottom-bar"></div>
+</body>
+</html>
