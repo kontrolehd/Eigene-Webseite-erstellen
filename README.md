@@ -23,7 +23,7 @@ Kurzanleitung:
 4.Felder ausfüllen (Name, Alter, personalisierter Text).
 5."HTML erstellen" anklicken.
 6.Speicherort auswählen.
-7.Dateinamen festlegen.
+7.Datai index.html nennen.
 8.https://app.netlify.com/drop/ öffnen.
 9.Die gerade erstellte Datei dort hochladen.
 FERTIG!
